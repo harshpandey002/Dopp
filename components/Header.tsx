@@ -1,9 +1,11 @@
 import React from "react";
 import { BiLinkExternal } from "react-icons/bi";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import Head from "next/head";
 
 export default function Header() {
+  const address = useAddress();
+
   return (
     <>
       <Head>
@@ -38,10 +40,11 @@ export default function Header() {
             LinkedIn <BiLinkExternal className="text-sm" />
           </li>
         </ul>
-
-        <div>
-          <ConnectWallet accentColor="#343434" />
-        </div>
+        {address && (
+          <div className="hidden md:flex">
+            <ConnectWallet accentColor="#343434" />
+          </div>
+        )}
       </div>
     </>
   );
