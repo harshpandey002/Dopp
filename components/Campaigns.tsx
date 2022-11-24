@@ -9,16 +9,13 @@ export default function Campaigns() {
       <CampaignCard />
       <CampaignCard />
       <CampaignCard />
-      <CampaignCard />
-      <CampaignCard />
-      <CampaignCard />
     </div>
   );
 }
 
 function CampaignCard() {
   return (
-    <div className="flex p-4 border border-gray-300 border-solid rounded-xl gap-4">
+    <div className="flex p-4 border border-gray-300 hover:border-gray-500 cursor-pointer border-solid rounded-xl gap-4">
       <div className="flex-[4] bg-gray-300 rounded-lg"></div>
       <div className="flex-[6] flex flex-col gap-4">
         <div>
@@ -26,7 +23,9 @@ function CampaignCard() {
             Charity Miles
           </h4>
           <span className="flex items-center gap-1 text-blue-800 ">
-            <a>harshkumarpandey.com</a>
+            <a className="cursor-pointer hover:underline ">
+              harshkumarpandey.com
+            </a>
             <BiLinkExternal className="text-sm" />
           </span>
         </div>
@@ -38,7 +37,7 @@ function CampaignCard() {
             ea velit eos?
           </p>
 
-          <div className="h-[28px] mt-3 overflow-hidden rounded-md ">
+          <div className="h-[28px] mt-3 overflow-hidden rounded-[4px] bg-neutral-200 ">
             <div className="h-full w-1/2 bg-gradient-to-r from-[#cebf36] to-[#96DD7D]" />
           </div>
         </div>

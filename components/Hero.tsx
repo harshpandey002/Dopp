@@ -3,7 +3,7 @@ import { BsArrowRight } from "react-icons/bs";
 
 export default function Hero() {
   return (
-    <div className="w-full max-w-[1000px] mx-auto  my-20 flex">
+    <div className="w-full max-w-[1000px] mx-auto my-[8rem] flex">
       <div className="flex-[5]">
         <h2 className="text-[44px] leading-snug font-semibold text-primary">
           Raise 🤑 Funds for your personal needs and <br /> fool the investors
