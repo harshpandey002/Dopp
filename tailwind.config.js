@@ -20,9 +20,12 @@ module.exports = {
       },
 
       gridTemplateColumns: {
-        campaigns: "repeat(auto-fill, minmax(400px, 1fr))",
+        campaigns: "repeat(auto-fill, minmax(340px, 1fr))",
       },
     },
   },
-  plugins: [require("@tailwindcss/line-clamp")],
+  plugins: [
+    require("@tailwindcss/line-clamp"),
+    require("@tailwindcss/aspect-ratio"),
+  ],
 };

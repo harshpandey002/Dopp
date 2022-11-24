@@ -17,25 +17,25 @@ export default function Header() {
             onClick={() => open("https://twitter.com/harshpandey002")}
             className="flex items-center gap-1 text-neutral-600 cursor-pointer hover:text-blue-900"
           >
-            LinkedIn <BiLinkExternal className="text-sm" />
+            Twitter <BiLinkExternal className="text-sm" />
           </li>
           <li
             onClick={() => open("https://www.instagram.com/harshpandey_002/")}
             className="flex items-center gap-1 text-neutral-600 cursor-pointer hover:text-blue-900"
           >
-            Twitter <BiLinkExternal className="text-sm" />
+            Instagram <BiLinkExternal className="text-sm" />
           </li>
           <li
-            onClick={() => open("https://github.com/harshpandey002")}
+            onClick={() => open("https://github.com/harshpandey002/dopp")}
             className="flex items-center gap-1 text-neutral-600 cursor-pointer hover:text-blue-900"
           >
-            Instagram <BiLinkExternal className="text-sm" />
+            Github <BiLinkExternal className="text-sm" />
           </li>
           <li
             onClick={() => open("https://www.linkedin.com/in/harshpandey002")}
             className="flex items-center gap-1 text-neutral-600 cursor-pointer hover:text-blue-900"
           >
-            Github <BiLinkExternal className="text-sm" />
+            LinkedIn <BiLinkExternal className="text-sm" />
           </li>
         </ul>
 

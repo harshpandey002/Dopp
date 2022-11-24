@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@thirdweb-dev/react": "^3.6.1",
     "@thirdweb-dev/sdk": "^3.6.1",
