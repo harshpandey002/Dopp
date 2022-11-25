@@ -11,9 +11,8 @@ const inputStyles =
 
 export default function CreateCampaignModal({
   show,
-}: {
-  show: boolean;
-}): JSX.Element | null {
+  onClose,
+}: any): JSX.Element | null {
   if (!show) return null;
 
   const [image, setImage] = useState<any>("");
@@ -53,11 +52,14 @@ export default function CreateCampaignModal({
 
   return (
     <>
-      <div className="fixed w-full h-full bg-gray-900/[.6] backdrop-blur-sm" />
       <div
-        className={`w-11/12 max-w-[800px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg`}
+        onClick={onClose}
+        className="fixed w-full h-full bg-gray-900/[.6] backdrop-blur-sm z-10"
+      />
+      <div
+        className={`w-11/12 max-w-[800px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg z-20`}
       >
-        <ModalHeader />
+        <ModalHeader onClose={onClose} />
         <div className="flex gap-4 p-4 pt-0">
           <form
             onSubmit={handleSubmit}
@@ -109,12 +111,15 @@ export default function CreateCampaignModal({
             </div>
             <input type="file" name="image" onChange={handleDrop} />
             <div className="flex items-center justify-between mt-2">
-              <button className="py-2 px-4 bg-gray-100 hover:bg-gray-200 text-primary rounded-md">
+              <button
+                onClick={onClose}
+                className="py-2 px-4 bg-gray-100 hover:bg-gray-200 text-primary rounded-md"
+              >
                 Cancle
               </button>
               <button
                 type="submit"
-                className="py-2 px-4 bg-green-600 hover:bg-green-800 text-white rounded-md"
+                className="py-2 px-4 bg-[#1D8399] hover:bg-[#13697C] text-white rounded-md"
               >
                 Create Campaign
               </button>
@@ -142,7 +147,7 @@ function PreviewCampaignCard({ data }: any) {
       <div className="flex-[6] flex flex-col gap-4">
         <div>
           <h4 className="line-clamp-1 text-2xl font-medium text-primary">
-            {name || "Charity Miles"}
+            {name || "Campaign Name"}
           </h4>
           <span className="flex items-center gap-1 text-blue-800 ">
             <a className="cursor-pointer hover:underline ">
@@ -179,11 +184,14 @@ function PreviewCampaignCard({ data }: any) {
   );
 }
 
-function ModalHeader() {
+function ModalHeader({ onClose }: any) {
   return (
     <div className="flex items-center justify-between p-4">
       <h3 className="text-xl font-medium">Create Campaign</h3>
-      <span className="w-[24] h-[24] rounded-full group hover:bg-neutral-100 p-1 cursor-pointer ">
+      <span
+        onClick={onClose}
+        className="w-[24] h-[24] rounded-full group hover:bg-neutral-100 p-1 cursor-pointer "
+      >
         <AiOutlineClose className="text-neutral-500 group-hover:text-neutral-800" />
       </span>
     </div>

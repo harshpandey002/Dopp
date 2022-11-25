@@ -1,6 +1,5 @@
 import React from "react";
 import CampaignCard from "./CampaignCard";
-import CreateCampaignModal from "./CreateCampaignModal";
 
 export default function Campaigns() {
   return (
@@ -11,7 +10,6 @@ export default function Campaigns() {
         <CampaignCard />
         <CampaignCard />
       </div>
-      <CreateCampaignModal show={true} />
     </>
   );
 }
