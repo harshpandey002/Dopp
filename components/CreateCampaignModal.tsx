@@ -142,22 +142,22 @@ function PreviewCampaignCard({ data }: any) {
       <div className="flex-[6] flex flex-col gap-4">
         <div>
           <h4 className="line-clamp-1 text-2xl font-medium text-primary">
-            {name}
+            {name || "Charity Miles"}
           </h4>
           <span className="flex items-center gap-1 text-blue-800 ">
-            {url && (
-              <>
-                <a className="cursor-pointer hover:underline ">{url}</a>
-                <BiLinkExternal className="text-sm" />
-              </>
-            )}
+            <a className="cursor-pointer hover:underline ">
+              {url || "xyz.com"}
+            </a>
+            <BiLinkExternal className="text-sm" />
           </span>
         </div>
         <div>
-          <p className="text-sm text-secondary line-clamp-3">{description}</p>
+          <p className="text-sm text-secondary line-clamp-3">
+            {description || "Loream ipsum blah blah blah!"}
+          </p>
 
           <div className="h-[28px] mt-3 overflow-hidden rounded-[4px] bg-neutral-200 ">
-            <div className="h-full w-1/2 bg-gradient-to-r from-[#cebf36] to-[#96DD7D]" />
+            <div className="h-full w-3/4 bg-gradient-to-r from-[#cebf36] to-[#96DD7D]" />
           </div>
         </div>
         <div className="flex items-center justify-between">
