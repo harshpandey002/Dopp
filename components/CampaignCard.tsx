@@ -2,7 +2,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
 
-export default function CampaignCard({ data = {} }: any) {
+export default function CampaignCard({ data = {}, onClick }: any) {
   const {
     image,
     name = "Charity Miles",
@@ -14,7 +14,10 @@ export default function CampaignCard({ data = {} }: any) {
   const address = useAddress();
 
   return (
-    <div className="flex flex-1 flex-col p-4 border border-gray-300 hover:border-gray-500 cursor-pointer border-solid rounded-xl gap-4">
+    <div
+      onClick={onClick}
+      className="flex flex-1 flex-col p-4 border border-gray-300 hover:border-gray-500 cursor-pointer border-solid rounded-xl gap-4"
+    >
       <div className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden">
         {image && <img className="object-cover" src={image} alt={name} />}
       </div>

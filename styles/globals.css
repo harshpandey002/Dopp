@@ -4,6 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-form::-webkit-scrollbar {
+#hideScroll::-webkit-scrollbar {
   width: 0;
 }

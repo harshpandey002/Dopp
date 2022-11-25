@@ -1,13 +1,13 @@
 import { useAddress } from "@thirdweb-dev/react";
-import React, { useCallback, useEffect, useState } from "react";
-import { AiOutlineClose, AiOutlineCloudUpload } from "react-icons/ai";
+import { useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
+import { ModalHeader } from "./ModalHeader";
 
 const inputGroup = "flex flex-col gap-1";
 
-const inputStyles =
-  "border  border-gray-300 focus:outline-none focus:border-gray-200 outline-none active:outline-none focus:border-gray-400 py-1 px-2 rounded-sm";
+export const inputStyles =
+  "border w-full border-gray-300 focus:outline-none focus:border-gray-200 outline-none active:outline-none focus:border-gray-400 py-1 px-2 rounded-sm";
 
 export default function CreateCampaignModal({
   show,
@@ -59,9 +59,10 @@ export default function CreateCampaignModal({
       <div
         className={`w-11/12 max-w-[800px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg z-20`}
       >
-        <ModalHeader onClose={onClose} />
+        <ModalHeader title="Create Campaign" onClose={onClose} />
         <div className="flex gap-4 p-4 pt-0">
           <form
+            id="hideScroll"
             onSubmit={handleSubmit}
             className="flex flex-col flex-1 gap-4 max-h-[80vh] overflow-auto"
           >
@@ -180,20 +181,6 @@ function PreviewCampaignCard({ data }: any) {
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function ModalHeader({ onClose }: any) {
-  return (
-    <div className="flex items-center justify-between p-4">
-      <h3 className="text-xl font-medium">Create Campaign</h3>
-      <span
-        onClick={onClose}
-        className="w-[24] h-[24] rounded-full group hover:bg-neutral-100 p-1 cursor-pointer "
-      >
-        <AiOutlineClose className="text-neutral-500 group-hover:text-neutral-800" />
-      </span>
     </div>
   );
 }
