@@ -1,6 +1,8 @@
+import { useAddress } from "@thirdweb-dev/react";
 import React, { useCallback, useEffect, useState } from "react";
-import { useDropzone } from "react-dropzone";
 import { AiOutlineClose, AiOutlineCloudUpload } from "react-icons/ai";
+import { BiLinkExternal } from "react-icons/bi";
+import { FaEthereum } from "react-icons/fa";
 
 const inputGroup = "flex flex-col gap-1";
 
@@ -22,19 +24,9 @@ export default function CreateCampaignModal({
     url: "",
   });
 
-  const onDrop = useCallback((acceptedFiles: any) => {
-    handleDrop(acceptedFiles);
-  }, []);
-
-  const { getRootProps, getInputProps, isDragAccept, open } = useDropzone({
-    onDrop,
-    accept: { "image/*": [] },
-    maxFiles: 1,
-  });
-
-  const handleDrop = (acceptedFiles: any) => {
+  const handleDrop = (e: any) => {
     const reader = new FileReader();
-    reader.readAsDataURL(acceptedFiles[0]);
+    reader.readAsDataURL(e.target.files[0]);
     reader.onabort = () => console.log("file reading was aborted");
     reader.onerror = () => console.log("file reading has failed");
     reader.onload = () => {
@@ -50,38 +42,27 @@ export default function CreateCampaignModal({
     });
   };
 
+  const campaignData = {
+    ...formData,
+    image,
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <div className="fixed w-full h-full bg-gray-900/[.6] backdrop-blur-sm" />
       <div
-        className={`w-11/12 max-w-[500px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg`}
+        className={`w-11/12 max-w-[800px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg`}
       >
         <ModalHeader />
-        <div className="p-4 pt-0">
-          <form className="flex flex-col gap-4 max-h-[80vh] overflow-auto">
-            <div
-              style={{
-                borderColor: isDragAccept ? "#134cae" : "",
-                borderWidth: image ? 0 : 1,
-              }}
-              className="aspect-w-2 aspect-h-1 flex flex-col gap-2"
-              {...getRootProps()}
-            >
-              <input {...getInputProps()} />
-              {image ? (
-                <img
-                  className="w-full h-full object-cover"
-                  src={image}
-                  alt={formData.name}
-                />
-              ) : (
-                <>
-                  <AiOutlineCloudUpload className="text-sm text-neutral-400" />
-                  <p>Upload Image</p>
-                </>
-              )}
-            </div>
-
+        <div className="flex gap-4 p-4 pt-0">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col flex-1 gap-4 max-h-[80vh] overflow-auto"
+          >
             <div className={inputGroup}>
               <label htmlFor="name">Name</label>
               <input
@@ -107,6 +88,7 @@ export default function CreateCampaignModal({
             <div className={inputGroup}>
               <label htmlFor="description">Description</label>
               <textarea
+                rows={3}
                 id="description"
                 name="description"
                 className={inputStyles}
@@ -125,10 +107,75 @@ export default function CreateCampaignModal({
                 onChange={handleChange}
               />
             </div>
+            <input type="file" name="image" onChange={handleDrop} />
+            <div className="flex items-center justify-between mt-2">
+              <button className="py-2 px-4 bg-gray-100 hover:bg-gray-200 text-primary rounded-md">
+                Cancle
+              </button>
+              <button
+                type="submit"
+                className="py-2 px-4 bg-green-600 hover:bg-green-800 text-white rounded-md"
+              >
+                Create Campaign
+              </button>
+            </div>
           </form>
+          <div className="flex flex-1 items-center justify-center">
+            <PreviewCampaignCard data={campaignData} />
+          </div>
         </div>
       </div>
     </>
+  );
+}
+
+function PreviewCampaignCard({ data }: any) {
+  const { image, name, description, url, amount } = data;
+
+  const address = useAddress();
+
+  return (
+    <div className="flex flex-1 flex-col p-4 border border-gray-300 border-solid rounded-xl gap-4">
+      <div className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden">
+        {image && <img className="object-cover" src={image} alt={name} />}
+      </div>
+      <div className="flex-[6] flex flex-col gap-4">
+        <div>
+          <h4 className="line-clamp-1 text-2xl font-medium text-primary">
+            {name}
+          </h4>
+          <span className="flex items-center gap-1 text-blue-800 ">
+            {url && (
+              <>
+                <a className="cursor-pointer hover:underline ">{url}</a>
+                <BiLinkExternal className="text-sm" />
+              </>
+            )}
+          </span>
+        </div>
+        <div>
+          <p className="text-sm text-secondary line-clamp-3">{description}</p>
+
+          <div className="h-[28px] mt-3 overflow-hidden rounded-[4px] bg-neutral-200 ">
+            <div className="h-full w-1/2 bg-gradient-to-r from-[#cebf36] to-[#96DD7D]" />
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <div>
+            <h4 className="flex text-2xl text-primary font-medium items-center gap-1">
+              <FaEthereum /> 0 Ether
+            </h4>
+            <p className="text-secondary text-sm">Raised of {amount} Ethers </p>
+          </div>
+          <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
+            <img
+              src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
+              alt="owner"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
