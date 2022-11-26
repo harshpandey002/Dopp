@@ -19,10 +19,14 @@ export default function DonateModal({ show, onClose }: any) {
 
         <div
           id="hideScroll"
-          className="flex flex-1 flex-col max-h-[70vh] overflow-auto p-4 pb-0 border-t border-gray-300 border-solid  gap-4"
+          className="flex flex-1 flex-col max-h-[70vh] overflow-auto px-4 gap-4"
         >
           <div className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden">
-            <img className="object-cover" src="" alt="dummy" />
+            <img
+              className="object-cover"
+              src="https://source.unsplash.com/400x200"
+              alt="dummy"
+            />
           </div>
           <div className="flex-[6] flex flex-col gap-4">
             <div>
@@ -79,7 +83,7 @@ export default function DonateModal({ show, onClose }: any) {
                   type="submit"
                   className="py-2 px-4 bg-[#1D8399] hover:bg-[#13697C] text-white rounded-md"
                 >
-                  Create Campaign
+                  Donate
                 </button>
               </div>
             </div>

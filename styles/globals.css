@@ -5,5 +5,18 @@
 @tailwind utilities;
 
 #hideScroll::-webkit-scrollbar {
-  width: 0;
+  width: 6px;
+}
+
+#hideScroll::-webkit-scrollbar-thumb {
+  background-color: #d1d1d1;
+  border-radius: 10px;
+}
+
+#hideScroll::-webkit-scrollbar-thumb:hover {
+  background-color: #9b9b9b;
+}
+
+#hideScroll::-webkit-scrollbar-track {
+  background-color: transparent;
 }

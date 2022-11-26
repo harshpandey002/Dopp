@@ -4,7 +4,7 @@ import { FaEthereum } from "react-icons/fa";
 
 export default function CampaignCard({ data = {}, onClick }: any) {
   const {
-    image,
+    image = "https://source.unsplash.com/600x300",
     name = "Charity Miles",
     description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur veniam reiciendis libero maiores illo vel placeat veritatis qui.Doloremque pariatur, illo mollitia ad nihil dolorem quam perferendis ea velit eos?",
     url = "harshkumarpandey.com",

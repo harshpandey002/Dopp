@@ -7,7 +7,7 @@ import { ModalHeader } from "./ModalHeader";
 const inputGroup = "flex flex-col gap-1";
 
 export const inputStyles =
-  "border w-full border-gray-300 focus:outline-none focus:border-gray-200 outline-none active:outline-none focus:border-gray-400 py-1 px-2 rounded-sm";
+  "outline-1 w-full outline outline-gray-300  focus:outline-[#1D8399] active:outline-[#1D8399]  focus:outline-2 active:outline-2  py-1 px-2 rounded-sm";
 
 export default function CreateCampaignModal({
   show,
@@ -64,7 +64,7 @@ export default function CreateCampaignModal({
           <form
             id="hideScroll"
             onSubmit={handleSubmit}
-            className="flex flex-col flex-1 gap-4 max-h-[80vh] overflow-auto"
+            className="flex flex-col flex-1 gap-4 max-h-[80vh] px-1 overflow-auto"
           >
             <div className={inputGroup}>
               <label htmlFor="name">Name</label>
