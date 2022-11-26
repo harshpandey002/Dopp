@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Campaigns from "../components/Campaigns";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 
@@ -11,6 +12,8 @@ const Home: NextPage = () => {
       <Hero />
 
       <Campaigns />
+
+      <Footer />
     </div>
   );
 };

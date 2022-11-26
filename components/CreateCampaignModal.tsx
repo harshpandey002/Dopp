@@ -60,7 +60,7 @@ export default function CreateCampaignModal({
         className={`w-11/12 max-w-[800px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg z-20`}
       >
         <ModalHeader title="Create Campaign" onClose={onClose} />
-        <div className="flex gap-4 p-4 pt-0">
+        <div className="flex gap-8 p-4 pt-0">
           <form
             id="hideScroll"
             onSubmit={handleSubmit}
