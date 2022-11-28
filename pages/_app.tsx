@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const desiredChainId = ChainId.Mumbai;
+  const desiredChainId = ChainId.Goerli;
 
   return (
     <ThirdwebProvider desiredChainId={desiredChainId}>

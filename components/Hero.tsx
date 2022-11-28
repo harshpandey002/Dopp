@@ -1,11 +1,16 @@
-import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress, useContract } from "@thirdweb-dev/react";
 import React, { useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import CreateCampaignModal from "./CreateCampaignModal";
+import ContractAbi from "../abi/abi.json";
 
 export default function Hero() {
   const [show, setShow] = useState(false);
   const address = useAddress();
+
+  const { contract } = useContract(
+    "0x70D9fF1448C94423164F084C530DEe506A4B0299"
+  );
 
   const classNames = address ? "" : "text-center max-w-[700px] flex-col";
 
@@ -14,7 +19,7 @@ export default function Hero() {
   };
 
   const handleShow = () => {
-    setShow(true);
+    console.log(contract);
   };
 
   return (
