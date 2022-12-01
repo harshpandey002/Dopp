@@ -1,23 +1,13 @@
-import {
-  ConnectWallet,
-  useAddress,
-  useContract,
-  useContractRead,
-} from "@thirdweb-dev/react";
-import React, { useState } from "react";
+import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
+import { ethers } from "ethers";
+import { useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
+import { useContractContext } from "../context/contractContext";
 import CreateCampaignModal from "./CreateCampaignModal";
-import ContractAbi from "../abi/abi.json";
 
 export default function Hero() {
   const [show, setShow] = useState(false);
   const address = useAddress();
-
-  const { contract } = useContract<any>(
-    "0xbF5cbea0FF261476E406070655e624E25aA4174D",
-    ContractAbi.abi
-  );
-  const { data } = useContractRead(contract, "campaignCount");
 
   const classNames = address ? "" : "text-center max-w-[700px] flex-col";
 
@@ -25,8 +15,18 @@ export default function Hero() {
     setShow(false);
   };
 
-  const handleShow = () => {
-    console.log(data);
+  const handleShow = async () => {
+    // try {
+    //   const amount = 0.6;
+    //   await createCampaign([
+    //     "https://images.unsplash.com/photo-1669554108285-dc5c2786ed61?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY2OTkxMjk0MQ&ixlib=rb-4.0.3&q=80&w=600",
+    //     "Bikrrr",
+    //     "I want to this bike, please donate money",
+    //     ethers.utils.parseEther(amount.toString()),
+    //   ]);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (

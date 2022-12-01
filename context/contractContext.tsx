@@ -4,22 +4,40 @@ import {
   useContractRead,
   useContractWrite,
 } from "@thirdweb-dev/react";
-import { createContext, useContext } from "react";
-import { CONTRACT_ADDRESS } from "../helpers/contractAddress";
 import { ethers } from "ethers";
+import { createContext, useContext, useEffect, useState } from "react";
+import { abi } from "../helpers/abi";
 
 export const contractContext = createContext({});
 export const useContractContext = () => useContext(contractContext);
 
 function ContractProvider({ children }: any) {
+  const [campaigns, setCampaigns] = useState<any>([]);
+
   const { contract } = useContract(
     "0x3f1aA18045B2A2814F02475f42C7577E4AdBE707"
   );
-  const { data: campaign, refetch: getCampaign } = useContractRead(
+
+  const { data: campaignCount, refetch: getCampaignCount } = useContractRead(
     contract,
-    "campaigns",
-    0
+    "campaignCount"
   );
+
+  useEffect(() => {
+    if (!campaignCount) return;
+    getCampaigns();
+  }, [campaignCount]);
+
+  const getCampaigns = async () => {
+    let _campaigns = [];
+
+    for (let i = 0; i < campaignCount.toNumber(); i++) {
+      const data = await contract?.call("campaigns", i);
+      _campaigns.push(data);
+    }
+
+    setCampaigns(_campaigns);
+  };
 
   const { mutateAsync: createCampaign } = useContractWrite(
     contract,
@@ -27,7 +45,8 @@ function ContractProvider({ children }: any) {
   );
 
   const contextValue = {
-    getCampaign,
+    campaigns,
+    getCampaigns,
     createCampaign,
   };
 

@@ -1,17 +1,20 @@
 import { useAddress } from "@thirdweb-dev/react";
+import { ethers } from "ethers";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
 
 export default function CampaignCard({ data = {}, onClick }: any) {
-  const {
-    image = "https://source.unsplash.com/600x300",
-    name = "Charity Miles",
-    description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur veniam reiciendis libero maiores illo vel placeat veritatis qui.Doloremque pariatur, illo mollitia ad nihil dolorem quam perferendis ea velit eos?",
-    url = "harshkumarpandey.com",
-    amount = 20,
-  } = data;
+  const { image, name, description, url, totalAmount, amountReceived } = data;
 
   const address = useAddress();
+
+  const received = Math.floor(
+    Number(ethers.utils.formatEther(amountReceived.toString()))
+  );
+
+  const total = Number(ethers.utils.formatEther(totalAmount.toString()));
+
+  const width = Math.floor((received / total) * 100) + "%";
 
   return (
     <div
@@ -39,15 +42,18 @@ export default function CampaignCard({ data = {}, onClick }: any) {
           <p className="text-sm text-secondary line-clamp-3">{description}</p>
 
           <div className="h-[28px] mt-3 overflow-hidden rounded-[4px] bg-neutral-200 ">
-            <div className="h-full w-1/2 bg-gradient-to-r from-[#cebf36] to-[#96DD7D]" />
+            <div
+              style={{ width }}
+              className="h-full bg-gradient-to-r from-[#cebf36] to-[#96DD7D]"
+            />
           </div>
         </div>
         <div className="flex items-center justify-between">
           <div>
             <h4 className="flex text-2xl text-primary font-medium items-center gap-1">
-              <FaEthereum /> 0 Ether
+              <FaEthereum /> {received} Ether
             </h4>
-            <p className="text-secondary text-sm">Raised of {amount} Ethers </p>
+            <p className="text-secondary text-sm">Raised of {total} Ethers</p>
           </div>
           <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
             <img

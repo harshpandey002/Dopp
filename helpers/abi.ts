@@ -23,12 +23,6 @@ export const abi = [
       {
         indexed: false,
         internalType: "string",
-        name: "url",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
         name: "description",
         type: "string",
       },
@@ -125,11 +119,6 @@ export const abi = [
       },
       {
         internalType: "string",
-        name: "url",
-        type: "string",
-      },
-      {
-        internalType: "string",
         name: "description",
         type: "string",
       },
@@ -161,22 +150,17 @@ export const abi = [
     inputs: [
       {
         internalType: "string",
-        name: "_image",
-        type: "string",
-      },
-      {
-        internalType: "string",
         name: "_name",
         type: "string",
       },
       {
         internalType: "string",
-        name: "_url",
+        name: "_description",
         type: "string",
       },
       {
         internalType: "string",
-        name: "_description",
+        name: "_image",
         type: "string",
       },
       {
@@ -201,6 +185,61 @@ export const abi = [
     name: "donateFunds",
     outputs: [],
     stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllCampaigns",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "id",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "image",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "name",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "description",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "amountReceived",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "goalAchieved",
+            type: "bool",
+          },
+          {
+            internalType: "uint256",
+            name: "totalAmount",
+            type: "uint256",
+          },
+          {
+            internalType: "address payable",
+            name: "author",
+            type: "address",
+          },
+        ],
+        internalType: "struct Dopp.Campaign[]",
+        name: "_campaigns",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
 ];
