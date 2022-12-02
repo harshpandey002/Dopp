@@ -1,10 +1,14 @@
-import { useAddress, useContractWrite } from "@thirdweb-dev/react";
+import {
+  MediaRenderer,
+  useAddress,
+  useContractWrite,
+  useStorageUpload,
+} from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import { useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
 import { useContractContext } from "../context/contractContext";
-import { uploadToIpfs } from "../helpers/ipfs";
 import { ModalHeader } from "./ModalHeader";
 
 const inputGroup = "flex flex-col gap-1";
@@ -27,11 +31,13 @@ export default function CreateCampaignModal({
     url: "",
   });
 
-  const { contract }: any = useContractContext();
+  const { contract, getCampaigns }: any = useContractContext();
   const { mutateAsync: createCampaign } = useContractWrite(
     contract,
     "createCampaign"
   );
+
+  const { mutateAsync: uploadToIpfs } = useStorageUpload();
 
   const handleDrop = (e: any) => {
     const reader = new FileReader();
@@ -67,16 +73,18 @@ export default function CreateCampaignModal({
     const { name, description, amount, url } = formData;
 
     try {
-      const imageCid = await uploadToIpfs(campaignData);
-      console.log(imageCid);
-      //   await createCampaign([
-      //     imageCid,
-      //     name,
-      //     url,
-      //     description,
-      //     ethers.utils.parseEther(amount.toString()),
-      //   ]);
+      const imageCid = await uploadToIpfs({ data: [image] });
+      console.log(imageCid[0]);
+      await createCampaign([
+        imageCid[0],
+        name,
+        url,
+        description,
+        ethers.utils.parseEther(amount.toString()),
+      ]);
       setIsLoading(false);
+      getCampaigns();
+      onClose();
     } catch (error) {
       console.log(error);
       setIsLoading(false);

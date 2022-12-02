@@ -1,13 +1,15 @@
-import { NFTStorage, File } from "nft.storage";
-const API_KEY = process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY;
+import { useStorageUpload } from "@thirdweb-dev/react";
 
 export const uploadToIpfs = async (campaign: any) => {
-  const client = new NFTStorage({ token: API_KEY });
-  const metadata = await client.store({
-    name: campaign.name,
-    description: campaign.description,
-    image: new File([campaign.image], campaign.name, { type: "image/png" }),
-  });
+  const { name, description, image } = campaign;
 
-  return metadata;
+  const metadata = {
+    name,
+    description,
+    image,
+  };
+
+  const cid = await storage.upload(metadata);
+
+  return cid;
 };

@@ -1,4 +1,4 @@
-import { useAddress } from "@thirdweb-dev/react";
+import { MediaRenderer, useAddress } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
@@ -21,8 +21,12 @@ export default function CampaignCard({ data = {}, onClick }: any) {
       onClick={onClick}
       className="flex flex-1 flex-col p-4 border border-gray-300 hover:border-gray-500 cursor-pointer border-solid rounded-xl gap-4"
     >
-      <div className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden">
-        {image && <img className="object-cover" src={image} alt={name} />}
+      <div
+        id="media"
+        className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden"
+      >
+        {/* {image && <img className="object-cover" src={image} alt={name} />} */}
+        <MediaRenderer className="object-cover" src={image} alt={name} />
       </div>
       <div className="flex-[6] flex flex-col gap-4">
         <div>
