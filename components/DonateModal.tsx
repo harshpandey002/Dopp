@@ -1,18 +1,40 @@
+import { MediaRenderer, useContractWrite } from "@thirdweb-dev/react";
+import { useState } from "react";
 import { ethers } from "ethers";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
+import { useContractContext } from "../context/contractContext";
 import { inputStyles } from "./CreateCampaignModal";
 import { ModalHeader } from "./ModalHeader";
 
 export default function DonateModal({ show: campaign, onClose }: any) {
   if (!campaign.name) return null;
 
-  const { name, description, image, totalAmount, amountReceived, url } =
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { contract, getCampaigns }: any = useContractContext();
+  const { mutateAsync: donateFunds } = useContractWrite(
+    contract,
+    "donateFunds"
+  );
+
+  const { id, name, description, image, totalAmount, amountReceived, url } =
     campaign;
 
   const received = Math.floor(
     Number(ethers.utils.formatEther(amountReceived.toString()))
   );
+
+  const donate = async () => {
+    setIsLoading(true);
+
+    try {
+      await donateFunds([id.toNumber()]);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
 
   const total = Number(ethers.utils.formatEther(totalAmount.toString()));
 
@@ -26,13 +48,16 @@ export default function DonateModal({ show: campaign, onClose }: any) {
         className={`w-11/12 max-w-[460px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg z-20`}
       >
         <ModalHeader title="Donate Funds" onClose={onClose} />
-
         <div
           id="hideScroll"
           className="flex flex-1 flex-col max-h-[70vh] overflow-auto px-4 gap-4"
         >
-          <div className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden">
-            <img className="object-cover" src={image} alt="dummy" />
+          <div
+            id="media"
+            className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden"
+          >
+            {/* <img className="object-cover" src={image} alt="dummy" /> */}
+            <MediaRenderer src={image} alt={name} />
           </div>
           <div className="flex-[6] flex flex-col gap-4">
             <div>
