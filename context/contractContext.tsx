@@ -53,18 +53,3 @@ function ContractProvider({ children }: any) {
 }
 
 export default ContractProvider;
-
-// !Create Campaigns
-// try {
-//     const amount = 1;
-
-//     const data = await createCampaign([
-//       "https://images.unsplash.com/photo-1667429517242-90d8d7e5165f?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY2OTg5NjE5MQ&ixlib=rb-4.0.3&q=80&w=600",
-//       "Bikrr",
-//       "savicmotorcycles.com",
-//       "Please donate money so that I can buy this bike.",
-//       ethers.utils.parseEther(amount.toString()),
-//     ]);
-//   } catch (error) {
-//     console.log(error);
-//   }

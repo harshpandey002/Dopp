@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
 import { useContractContext } from "../context/contractContext";
+import { uploadToIpfs } from "../helpers/ipfs";
 import { ModalHeader } from "./ModalHeader";
 
 const inputGroup = "flex flex-col gap-1";
@@ -17,6 +18,7 @@ export default function CreateCampaignModal({
 }: any): JSX.Element | null {
   if (!show) return null;
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [image, setImage] = useState<any>("");
   const [formData, setFormData] = useState({
     name: "",
@@ -26,7 +28,7 @@ export default function CreateCampaignModal({
   });
 
   const { contract }: any = useContractContext();
-  const { mutateAsync: createCampaign, isLoading } = useContractWrite(
+  const { mutateAsync: createCampaign } = useContractWrite(
     contract,
     "createCampaign"
   );
@@ -54,21 +56,30 @@ export default function CreateCampaignModal({
     image,
   };
 
+  const handleClose = () => {
+    if (isLoading) return;
+    onClose();
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const { name, description, amount, url } = formData;
 
     try {
-      await createCampaign([
-        image,
-        name,
-        url,
-        description,
-        ethers.utils.parseEther(amount.toString()),
-      ]);
+      const imageCid = await uploadToIpfs(campaignData);
+      console.log(imageCid);
+      //   await createCampaign([
+      //     imageCid,
+      //     name,
+      //     url,
+      //     description,
+      //     ethers.utils.parseEther(amount.toString()),
+      //   ]);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -76,16 +87,16 @@ export default function CreateCampaignModal({
   return (
     <>
       <div
-        onClick={onClose}
+        onClick={handleClose}
         className="fixed w-full h-full bg-gray-900/[.6] backdrop-blur-sm z-10"
       />
       <div
         className={`w-11/12 max-w-[800px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg z-20`}
       >
-        <ModalHeader title="Create Campaign" onClose={onClose} />
+        <ModalHeader title="Create Campaign" onClose={handleClose} />
         <div className="flex gap-8 p-4 pt-0">
           {(name || image || description || url || !!amount) && (
-            <div className="flex flex-1 items-center justify-center">
+            <div className="hidden md:flex flex-1 items-center justify-center">
               <PreviewCampaignCard data={campaignData} />
             </div>
           )}
@@ -146,12 +157,14 @@ export default function CreateCampaignModal({
             <input type="file" name="image" onChange={handleDrop} />
             <div className="flex items-center justify-between mt-2">
               <button
-                onClick={onClose}
+                disabled={isLoading}
+                onClick={handleClose}
                 className="py-2 px-4 bg-gray-100 hover:bg-gray-200 text-primary rounded-md"
               >
                 Cancle
               </button>
               <button
+                disabled={isLoading}
                 type="submit"
                 className="py-2 px-4 bg-[#1D8399] hover:bg-[#13697C] text-white rounded-md"
               >
