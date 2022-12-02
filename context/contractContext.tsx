@@ -39,15 +39,10 @@ function ContractProvider({ children }: any) {
     setCampaigns(_campaigns);
   };
 
-  const { mutateAsync: createCampaign } = useContractWrite(
-    contract,
-    "createCampaign"
-  );
-
   const contextValue = {
+    contract,
     campaigns,
     getCampaigns,
-    createCampaign,
   };
 
   return (

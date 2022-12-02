@@ -1,7 +1,9 @@
-import { useAddress } from "@thirdweb-dev/react";
+import { useAddress, useContractWrite } from "@thirdweb-dev/react";
+import { ethers } from "ethers";
 import { useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
+import { useContractContext } from "../context/contractContext";
 import { ModalHeader } from "./ModalHeader";
 
 const inputGroup = "flex flex-col gap-1";
@@ -22,6 +24,12 @@ export default function CreateCampaignModal({
     amount: 0,
     url: "",
   });
+
+  const { contract }: any = useContractContext();
+  const { mutateAsync: createCampaign, isLoading } = useContractWrite(
+    contract,
+    "createCampaign"
+  );
 
   const handleDrop = (e: any) => {
     const reader = new FileReader();
@@ -46,10 +54,25 @@ export default function CreateCampaignModal({
     image,
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    const { name, description, amount, url } = formData;
+
+    try {
+      await createCampaign([
+        image,
+        name,
+        url,
+        description,
+        ethers.utils.parseEther(amount.toString()),
+      ]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  const { name, description, url, amount } = formData;
   return (
     <>
       <div
@@ -61,6 +84,11 @@ export default function CreateCampaignModal({
       >
         <ModalHeader title="Create Campaign" onClose={onClose} />
         <div className="flex gap-8 p-4 pt-0">
+          {(name || image || description || url || !!amount) && (
+            <div className="flex flex-1 items-center justify-center">
+              <PreviewCampaignCard data={campaignData} />
+            </div>
+          )}
           <form
             id="hideScroll"
             onSubmit={handleSubmit}
@@ -75,6 +103,7 @@ export default function CreateCampaignModal({
                 className={inputStyles}
                 value={formData.name}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className={inputGroup}>
@@ -97,6 +126,7 @@ export default function CreateCampaignModal({
                 className={inputStyles}
                 value={formData.description}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className={inputGroup}>
@@ -105,9 +135,12 @@ export default function CreateCampaignModal({
                 id="amount"
                 name="amount"
                 type="number"
+                min="0"
+                step="0.1"
                 className={inputStyles}
                 value={formData.amount}
                 onChange={handleChange}
+                required
               />
             </div>
             <input type="file" name="image" onChange={handleDrop} />
@@ -126,9 +159,6 @@ export default function CreateCampaignModal({
               </button>
             </div>
           </form>
-          <div className="flex flex-1 items-center justify-center">
-            <PreviewCampaignCard data={campaignData} />
-          </div>
         </div>
       </div>
     </>
@@ -142,44 +172,53 @@ function PreviewCampaignCard({ data }: any) {
 
   return (
     <div className="flex flex-1 flex-col p-4 border border-gray-300 border-solid rounded-xl gap-4">
-      <div className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden">
-        {image && <img className="object-cover" src={image} alt={name} />}
-      </div>
+      {image && (
+        <div className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden">
+          <img className="object-cover" src={image} alt={name} />
+        </div>
+      )}
       <div className="flex-[6] flex flex-col gap-4">
         <div>
-          <h4 className="line-clamp-1 text-2xl font-medium text-primary">
-            {name || "Campaign Name"}
-          </h4>
-          <span className="flex items-center gap-1 text-blue-800 ">
-            <a className="cursor-pointer hover:underline ">
-              {url || "xyz.com"}
-            </a>
-            <BiLinkExternal className="text-sm" />
-          </span>
+          {name && (
+            <h4 className="line-clamp-1 text-2xl font-medium text-primary">
+              {name}
+            </h4>
+          )}
+          {url && (
+            <span className="flex items-center gap-1 text-blue-800 ">
+              <a className="cursor-pointer hover:underline ">{url}</a>
+              <BiLinkExternal className="text-sm" />
+            </span>
+          )}
         </div>
         <div>
-          <p className="text-sm text-secondary line-clamp-3">
-            {description || "Loream ipsum blah blah blah!"}
-          </p>
-
-          <div className="h-[28px] mt-3 overflow-hidden rounded-[4px] bg-neutral-200 ">
-            <div className="h-full w-3/4 bg-gradient-to-r from-[#cebf36] to-[#96DD7D]" />
-          </div>
+          {description && (
+            <p className="text-sm text-secondary line-clamp-3">{description}</p>
+          )}
+          {!!amount && (
+            <div className="h-[28px] mt-3 overflow-hidden rounded-[4px] bg-neutral-200 ">
+              <div className="h-full w-3/4 bg-gradient-to-r from-[#cebf36] to-[#96DD7D]" />
+            </div>
+          )}
         </div>
-        <div className="flex items-center justify-between">
-          <div>
-            <h4 className="flex text-2xl text-primary font-medium items-center gap-1">
-              <FaEthereum /> 0 Ether
-            </h4>
-            <p className="text-secondary text-sm">Raised of {amount} Ethers </p>
+        {!!amount && (
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="flex text-2xl text-primary font-medium items-center gap-1">
+                <FaEthereum /> 0 Ether
+              </h4>
+              <p className="text-secondary text-sm">
+                Raised of {amount} Ethers{" "}
+              </p>
+            </div>
+            <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
+              <img
+                src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
+                alt="owner"
+              />
+            </div>
           </div>
-          <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-            <img
-              src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
-              alt="owner"
-            />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -16,17 +16,7 @@ export default function Hero() {
   };
 
   const handleShow = async () => {
-    // try {
-    //   const amount = 0.6;
-    //   await createCampaign([
-    //     "https://images.unsplash.com/photo-1669554108285-dc5c2786ed61?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY2OTkxMjk0MQ&ixlib=rb-4.0.3&q=80&w=600",
-    //     "Bikrrr",
-    //     "I want to this bike, please donate money",
-    //     ethers.utils.parseEther(amount.toString()),
-    //   ]);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    setShow(true);
   };
 
   return (
