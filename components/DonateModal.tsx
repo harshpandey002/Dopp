@@ -1,10 +1,20 @@
+import { ethers } from "ethers";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
 import { inputStyles } from "./CreateCampaignModal";
 import { ModalHeader } from "./ModalHeader";
 
-export default function DonateModal({ show, onClose }: any) {
-  if (!show) return null;
+export default function DonateModal({ show: campaign, onClose }: any) {
+  if (!campaign.name) return null;
+
+  const { name, description, image, totalAmount, amountReceived, url } =
+    campaign;
+
+  const received = Math.floor(
+    Number(ethers.utils.formatEther(amountReceived.toString()))
+  );
+
+  const total = Number(ethers.utils.formatEther(totalAmount.toString()));
 
   return (
     <>
@@ -22,42 +32,29 @@ export default function DonateModal({ show, onClose }: any) {
           className="flex flex-1 flex-col max-h-[70vh] overflow-auto px-4 gap-4"
         >
           <div className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden">
-            <img
-              className="object-cover"
-              src="https://source.unsplash.com/400x200"
-              alt="dummy"
-            />
+            <img className="object-cover" src={image} alt="dummy" />
           </div>
           <div className="flex-[6] flex flex-col gap-4">
             <div>
               <h4 className="line-clamp-1 text-2xl font-medium text-primary">
-                Campaign Name
+                {name}
               </h4>
-              <span className="flex items-center gap-1 text-blue-800 ">
-                <a className="cursor-pointer hover:underline ">xyz.com</a>
-                <BiLinkExternal className="text-sm" />
-              </span>
+              {url && (
+                <span className="flex items-center gap-1 text-blue-800 ">
+                  <a className="cursor-pointer hover:underline ">{url}</a>
+                  <BiLinkExternal className="text-sm" />
+                </span>
+              )}
             </div>
-            <p className="text-sm text-secondary ">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-              numquam ipsa dolorem earum, ipsum recusandae fuga! Eligendi id
-              voluptates, sequi molestiae quo ad similique tempore
-              exercitationem maiores ducimus illo a recusandae assumenda! Dolor
-              neque a laborum nesciunt voluptates fuga doloremque quia itaque
-              assumenda, iusto autem reiciendis incidunt libero soluta? Ratione!
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-              numquam ipsa dolorem earum, ipsum recusandae fuga! Eligendi id
-              voluptates, sequi molestiae quo ad similique tempore
-              exercitationem maiores ducimus illo a recusandae assumenda! Dolor
-              neque a laborum nesciunt voluptates fuga doloremque quia itaque
-              assumenda, iusto autem reiciendis incidunt libero soluta? Ratione!
-            </p>
+            <p className="text-sm text-secondary ">{description}</p>
             <div className="flex items-center justify-between">
               <div>
                 <h4 className="flex text-2xl text-primary font-medium items-center gap-1">
-                  <FaEthereum /> 0 Ether
+                  <FaEthereum /> {received} Ether
                 </h4>
-                <p className="text-secondary text-sm">Raised of 20 Ethers </p>
+                <p className="text-secondary text-sm">
+                  Raised of {total} Ethers
+                </p>
               </div>
               <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
                 <img

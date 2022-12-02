@@ -42,7 +42,7 @@ export default function Header() {
         </ul>
         {address && (
           <div className="hidden md:flex">
-            <ConnectWallet accentColor="#343434" />
+            <ConnectWallet accentColor="#2a2a2a" />
           </div>
         )}
       </div>

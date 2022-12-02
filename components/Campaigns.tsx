@@ -4,15 +4,15 @@ import CampaignCard from "./CampaignCard";
 import DonateModal from "./DonateModal";
 
 export default function Campaigns() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState({});
   const { campaigns }: any = useContractContext();
 
   const onClose = () => {
-    setShow(false);
+    setShow({});
   };
 
-  const onClick = () => {
-    setShow(true);
+  const onClick = (campaign: any) => {
+    setShow(campaign);
   };
 
   return (

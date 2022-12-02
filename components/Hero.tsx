@@ -46,7 +46,7 @@ export default function Hero() {
           </div>
         ) : (
           <div className="w-max mx-auto mt-8 ">
-            <ConnectWallet accentColor="#343434" />
+            <ConnectWallet accentColor="#1d8399" />
           </div>
         )}
       </div>

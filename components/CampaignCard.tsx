@@ -18,7 +18,7 @@ export default function CampaignCard({ data = {}, onClick }: any) {
 
   return (
     <div
-      onClick={onClick}
+      onClick={() => onClick(data)}
       className="flex flex-1 flex-col p-4 border border-gray-300 hover:border-gray-500 cursor-pointer border-solid rounded-xl gap-4"
     >
       <div
@@ -26,7 +26,7 @@ export default function CampaignCard({ data = {}, onClick }: any) {
         className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden"
       >
         {/* {image && <img className="object-cover" src={image} alt={name} />} */}
-        <MediaRenderer className="object-cover" src={image} alt={name} />
+        <MediaRenderer src={image} alt={name} />
       </div>
       <div className="flex-[6] flex flex-col gap-4">
         <div>
