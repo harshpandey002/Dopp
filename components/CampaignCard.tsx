@@ -3,30 +3,36 @@ import { ethers } from "ethers";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
 
-export default function CampaignCard({ data = {}, onClick }: any) {
+export default function CampaignCard({ data = {}, onClick, disabled }: any) {
   const { image, name, description, url, totalAmount, amountReceived } = data;
 
   const address = useAddress();
 
-  const received = Math.floor(
-    Number(ethers.utils.formatEther(amountReceived.toString()))
-  );
+  const received = Number(ethers.utils.formatEther(amountReceived.toString()));
 
   const total = Number(ethers.utils.formatEther(totalAmount.toString()));
 
-  const width = Math.floor((received / total) * 100) + "%";
+  const width = disabled ? "100%" : Math.floor((received / total) * 100) + "%";
+
+  const containerClass = disabled ? "" : "hover:border-gray-500 cursor-pointer";
+
+  const gradientClass = disabled
+    ? " from-[#cebf36] to-[#96DD7D]"
+    : "from-[#cebf36] to-[#96DD7D]";
+
+  let src = image.replace("ipfs://", "https://ipfs.io/ipfs/");
 
   return (
     <div
       onClick={() => onClick(data)}
-      className="flex flex-1 flex-col p-4 border border-gray-300 hover:border-gray-500 cursor-pointer border-solid rounded-xl gap-4"
+      className={`flex flex-1 flex-col p-4 border border-gray-300 border-solid rounded-xl gap-4 ${containerClass}`}
     >
       <div
         id="media"
         className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden"
       >
-        {/* {image && <img className="object-cover" src={image} alt={name} />} */}
-        <MediaRenderer src={image} alt={name} />
+        {/* {image && <img className="object-cover" src={src} alt={name} />} */}
+        <MediaRenderer src={src} alt={name} />
       </div>
       <div className="flex-[6] flex flex-col gap-4">
         <div>
@@ -48,7 +54,7 @@ export default function CampaignCard({ data = {}, onClick }: any) {
           <div className="h-[28px] mt-3 overflow-hidden rounded-[4px] bg-neutral-200 ">
             <div
               style={{ width }}
-              className="h-full bg-gradient-to-r from-[#cebf36] to-[#96DD7D]"
+              className={`h-full bg-gradient-to-r ${gradientClass}`}
             />
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { MediaRenderer, useContractWrite } from "@thirdweb-dev/react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ethers } from "ethers";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
@@ -9,13 +9,9 @@ import { ModalHeader } from "./ModalHeader";
 
 export default function DonateModal({ show: campaign, onClose }: any) {
   if (!campaign.name) return null;
-
+  const amountRef = useRef<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { contract, getCampaigns }: any = useContractContext();
-  const { mutateAsync: donateFunds } = useContractWrite(
-    contract,
-    "donateFunds"
-  );
 
   const { id, name, description, image, totalAmount, amountReceived, url } =
     campaign;
@@ -25,15 +21,28 @@ export default function DonateModal({ show: campaign, onClose }: any) {
   );
 
   const donate = async () => {
+    const amount = amountRef.current.value;
+    if (amount <= 0) {
+      return;
+    }
     setIsLoading(true);
 
     try {
-      await donateFunds([id.toNumber()]);
+      await contract.call("donateFunds", id.toNumber(), {
+        value: ethers.utils.parseEther(amount),
+      });
       setIsLoading(false);
+      getCampaigns();
+      onClose();
     } catch (error) {
       console.log(error);
       setIsLoading(false);
     }
+  };
+
+  const handleClose = () => {
+    if (isLoading) return;
+    onClose();
   };
 
   const total = Number(ethers.utils.formatEther(totalAmount.toString()));
@@ -41,13 +50,13 @@ export default function DonateModal({ show: campaign, onClose }: any) {
   return (
     <>
       <div
-        onClick={onClose}
-        className="fixed w-full h-full bg-gray-900/[.6] backdrop-blur-sm z-10"
+        onClick={handleClose}
+        className="fixed w-full h-full top-0 bg-gray-900/[.6] backdrop-blur-sm z-10"
       />
       <div
         className={`w-11/12 max-w-[460px] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg z-20`}
       >
-        <ModalHeader title="Donate Funds" onClose={onClose} />
+        <ModalHeader title="Donate Funds" onClose={handleClose} />
         <div
           id="hideScroll"
           className="flex flex-1 flex-col max-h-[70vh] overflow-auto px-4 gap-4"
@@ -91,17 +100,23 @@ export default function DonateModal({ show: campaign, onClose }: any) {
             <div className="flex flex-col gap-2 sticky bottom-0 bg-white py-4">
               <input
                 className={inputStyles}
-                type="amount"
+                type="number"
+                min="0"
+                step="0.1"
                 placeholder="Enter Amount"
+                ref={amountRef}
               />
               <div className="flex items-center justify-between mt-2">
                 <button
-                  onClick={onClose}
+                  disabled={isLoading}
+                  onClick={handleClose}
                   className="py-2 px-4 bg-gray-100 hover:bg-gray-200 text-primary rounded-md"
                 >
                   Cancle
                 </button>
                 <button
+                  disabled={isLoading}
+                  onClick={donate}
                   type="submit"
                   className="py-2 px-4 bg-[#1D8399] hover:bg-[#13697C] text-white rounded-md"
                 >
