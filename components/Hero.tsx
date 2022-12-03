@@ -1,8 +1,6 @@
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
-import { ethers } from "ethers";
 import { useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
-import { useContractContext } from "../context/contractContext";
 import CreateCampaignModal from "./CreateCampaignModal";
 
 export default function Hero() {
@@ -24,12 +22,12 @@ export default function Hero() {
       <div
         className={`w-full max-w-[1000px] mx-auto my-[6rem] flex  ${classNames}`}
       >
-        <div className="flex-[5]">
-          <h2 className="text-[44px] leading-snug font-semibold text-primary">
+        <div className="flex-[5] px-4">
+          <h2 className="text-[28px] md:text-[44px] leading-snug font-semibold text-primary">
             Raise 🤑 Funds for your personal needs and {address ? <br /> : ""}{" "}
             fool the investors 😭
           </h2>
-          <p className="mt-7 text-secondary text-xl font-medium">
+          <p className="mt-7 text-secondary text-md md:text-xl md:font-medium">
             Instantly fool your investors by saying you need funds for your
             mother’s surgery.
           </p>
