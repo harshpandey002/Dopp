@@ -1,14 +1,14 @@
 import {
-  MediaRenderer,
   useAddress,
   useContractWrite,
   useStorageUpload,
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
 import { useContractContext } from "../context/contractContext";
+import { formatAddr } from "../helpers/formatAddr";
 import { ModalHeader } from "./ModalHeader";
 
 const inputGroup = "flex flex-col gap-1";
@@ -40,14 +40,16 @@ export default function CreateCampaignModal({
   const { mutateAsync: uploadToIpfs } = useStorageUpload();
 
   const handleDrop = (e: any) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onabort = () => console.log("file reading was aborted");
-    reader.onerror = () => console.log("file reading has failed");
-    reader.onload = () => {
-      const imageUri = reader.result;
-      setImage(imageUri);
-    };
+    setImage(e.target.files[0]);
+
+    // const reader = new FileReader();
+    // reader.readAsArrayBuffer(e.target.files[0]);
+    // reader.onabort = () => console.log("file reading was aborted");
+    // reader.onerror = () => console.log("file reading has failed");
+    // reader.onload = () => {
+    //   const imageUri = reader.result;
+    //   setImage(imageUri);
+    // };
   };
 
   const handleChange = (e: any) => {
@@ -73,10 +75,16 @@ export default function CreateCampaignModal({
     const { name, description, amount, url } = formData;
 
     try {
-      const imageCid = await uploadToIpfs({ data: [image] });
-      console.log(imageCid[0]);
+      const uploadUrl = await uploadToIpfs({
+        data: [image],
+        options: {
+          uploadWithGatewayUrl: true,
+          uploadWithoutDirectory: true,
+        },
+      });
+
       await createCampaign([
-        imageCid[0],
+        uploadUrl[0],
         name,
         url,
         description,
@@ -188,14 +196,26 @@ export default function CreateCampaignModal({
 
 function PreviewCampaignCard({ data }: any) {
   const { image, name, description, url, amount } = data;
+  const [file, setFile] = useState();
 
-  const address = useAddress();
+  useEffect(() => {
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onabort = () => console.log("file reading was aborted");
+    reader.onerror = () => console.log("file reading has failed");
+    reader.onload = () => {
+      const imageUri: any = reader.result;
+      setFile(imageUri);
+    };
+  }, [image]);
+
+  const address: any = useAddress();
 
   return (
     <div className="flex flex-1 flex-col p-4 border border-gray-300 border-solid rounded-xl gap-4">
       {image && (
         <div className="aspect-w-2 aspect-h-1 w-full bg-gray-300 rounded-lg overflow-hidden">
-          <img className="object-cover" src={image} alt={name} />
+          <img className="object-cover" src={file} alt={name} />
         </div>
       )}
       <div className="flex-[6] flex flex-col gap-4">
@@ -232,12 +252,9 @@ function PreviewCampaignCard({ data }: any) {
                 Raised of {amount} Ethers{" "}
               </p>
             </div>
-            <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-              <img
-                src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
-                alt="owner"
-              />
-            </div>
+            <p className="border border-solid border-[#e3e3e3] rounded-md px-2 py-1 text-sm text-gray-400 hover:bg-gray-200">
+              {formatAddr(address)}
+            </p>
           </div>
         )}
       </div>

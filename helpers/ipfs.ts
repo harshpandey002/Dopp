@@ -1,15 +1,9 @@
 import { useStorageUpload } from "@thirdweb-dev/react";
 
-export const uploadToIpfs = async (campaign: any) => {
-  const { name, description, image } = campaign;
+export const uploadToIpfs = async (image: any) => {
+  const { mutateAsync: upload } = useStorageUpload();
 
-  const metadata = {
-    name,
-    description,
-    image,
-  };
+  const cid = await upload({ data: [image] });
 
-  const cid = await storage.upload(metadata);
-
-  return cid;
+  return cid[0];
 };

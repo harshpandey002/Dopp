@@ -9,8 +9,6 @@ export default function CampaignCard({ data = {}, onClick, disabled }: any) {
   const { image, name, description, url, totalAmount, amountReceived, author } =
     data;
 
-  const address = useAddress();
-
   const received = Number(ethers.utils.formatEther(amountReceived.toString()));
 
   const total = Number(ethers.utils.formatEther(totalAmount.toString()));
