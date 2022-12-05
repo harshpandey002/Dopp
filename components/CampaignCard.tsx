@@ -2,9 +2,12 @@ import { MediaRenderer, useAddress } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { formatAddr } from "../helpers/formatAddr";
 
 export default function CampaignCard({ data = {}, onClick, disabled }: any) {
-  const { image, name, description, url, totalAmount, amountReceived } = data;
+  const { image, name, description, url, totalAmount, amountReceived, author } =
+    data;
 
   const address = useAddress();
 
@@ -21,6 +24,11 @@ export default function CampaignCard({ data = {}, onClick, disabled }: any) {
     : "from-[#cebf36] to-[#96DD7D]";
 
   let src = image.replace("ipfs://", "https://ipfs.io/ipfs/");
+
+  const handleAuthor = (e: any) => {
+    e.stopPropagation();
+    toast.success("Copied");
+  };
 
   return (
     <div
@@ -58,19 +66,19 @@ export default function CampaignCard({ data = {}, onClick, disabled }: any) {
             />
           </div>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-end justify-between">
           <div>
             <h4 className="flex text-2xl text-primary font-medium items-center gap-1">
               <FaEthereum /> {received} Ether
             </h4>
             <p className="text-secondary text-sm">Raised of {total} Ethers</p>
           </div>
-          <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-            <img
-              src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
-              alt="owner"
-            />
-          </div>
+          <p
+            onClick={handleAuthor}
+            className="border border-solid border-[#e3e3e3] rounded-md px-2 py-1 text-sm text-gray-400 hover:bg-gray-200"
+          >
+            {formatAddr(author)}
+          </p>
         </div>
       </div>
     </div>
