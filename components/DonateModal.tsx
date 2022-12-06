@@ -58,10 +58,7 @@ export default function DonateModal({ show: campaign, onClose }: any) {
 
   const copyAuthor = (e: any) => {
     e.stopPropagation();
-    copy(author, {
-      debug: true,
-      message: "Press #{key} to copy",
-    });
+    copy(author);
     toast.success(`${formatAddr(author)} Copied`);
   };
 

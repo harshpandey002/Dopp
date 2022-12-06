@@ -6,7 +6,7 @@ import { FaLinkedinIn, FaTwitter } from "react-icons/fa";
 export default function Footer() {
   return (
     <>
-      <ul className="text-l font-medium text-primary align-center gap-4 flex md:hidden">
+      <ul className="text-l font-medium text-primary align-center gap-6 flex md:hidden items-center justify-center py-6 px-4 border-t border-gray-300">
         <li
           onClick={() => open("https://twitter.com/harshpandey002")}
           className="text-neutral-600 cursor-pointer hover:text-[#00acae]"

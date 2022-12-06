@@ -4,6 +4,7 @@ import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { formatAddr } from "../helpers/formatAddr";
+import copy from "copy-to-clipboard";
 
 export default function CampaignCard({ data = {}, onClick, disabled }: any) {
   const { image, name, description, url, totalAmount, amountReceived, author } =
@@ -23,9 +24,10 @@ export default function CampaignCard({ data = {}, onClick, disabled }: any) {
 
   let src = image.replace("ipfs://", "https://ipfs.io/ipfs/");
 
-  const handleAuthor = (e: any) => {
+  const copyAuthor = (e: any) => {
     e.stopPropagation();
-    toast.success("Copied");
+    copy(author);
+    toast.success(`${formatAddr(author)} Copied`);
   };
 
   return (
@@ -72,7 +74,7 @@ export default function CampaignCard({ data = {}, onClick, disabled }: any) {
             <p className="text-secondary text-sm">Raised of {total} Ethers</p>
           </div>
           <p
-            onClick={handleAuthor}
+            onClick={copyAuthor}
             className="border border-solid border-[#e3e3e3] rounded-md px-2 py-1 text-sm text-gray-400 hover:bg-gray-200"
           >
             {formatAddr(author)}

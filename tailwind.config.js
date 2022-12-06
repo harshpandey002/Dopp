@@ -20,7 +20,7 @@ module.exports = {
       },
 
       gridTemplateColumns: {
-        campaigns: "repeat(auto-fill, minmax(340px, 1fr))",
+        campaigns: "repeat(auto-fill, minmax(320px, 1fr))",
       },
     },
   },
