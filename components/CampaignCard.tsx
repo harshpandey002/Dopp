@@ -72,7 +72,7 @@ export default function CampaignCard({ data = {}, onClick, disabled }: any) {
           </div>
           <p
             onClick={copyAuthor}
-            className="border border-solid border-[#e3e3e3] rounded-md px-2 py-1 text-sm text-gray-400 hover:bg-gray-200"
+            className="border border-solid cursor-pointer border-[#e3e3e3] rounded-md px-2 py-1 text-sm text-gray-400 hover:bg-gray-200"
           >
             {formatAddr(author)}
           </p>

@@ -5,7 +5,7 @@ import { FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <>
+    <div className="mt-auto">
       <ul className="text-l font-medium text-primary align-center gap-6 flex md:hidden items-center justify-center py-6 px-4 border-t border-gray-300">
         <li
           onClick={() => open("https://twitter.com/harshpandey002")}
@@ -58,6 +58,6 @@ export default function Footer() {
           LinkedIn <BiLinkExternal className="text-sm" />
         </li>
       </ul>
-    </>
+    </div>
   );
 }

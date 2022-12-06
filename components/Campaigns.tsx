@@ -3,10 +3,11 @@ import React, { useState } from "react";
 import { useContractContext } from "../context/contractContext";
 import CampaignCard from "./CampaignCard";
 import DonateModal from "./DonateModal";
+import { ImSpinner2 } from "react-icons/im";
 
 export default function Campaigns() {
   const [show, setShow] = useState({});
-  const { campaigns }: any = useContractContext();
+  const { campaigns, loadingCampigns }: any = useContractContext();
 
   const onClose = () => {
     setShow({});
@@ -26,6 +27,14 @@ export default function Campaigns() {
       pending.push(data);
     }
   });
+
+  if (loadingCampigns) {
+    return (
+      <div className="w-full flex items-center justify-center">
+        <ImSpinner2 className="text-2xl animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-4">

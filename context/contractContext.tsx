@@ -13,6 +13,7 @@ export const useContractContext = () => useContext(contractContext);
 
 function ContractProvider({ children }: any) {
   const [campaigns, setCampaigns] = useState<any>([]);
+  const [loadingCampigns, setLoadingCampigns] = useState<any>(false);
 
   const { contract } = useContract(
     "0x3f1aA18045B2A2814F02475f42C7577E4AdBE707"
@@ -31,16 +32,22 @@ function ContractProvider({ children }: any) {
   const getCampaigns = async () => {
     let _campaigns = [];
 
-    for (let i = 0; i < campaignCount.toNumber(); i++) {
-      const data = await contract?.call("campaigns", i);
-      _campaigns.push(data);
+    setLoadingCampigns(true);
+    try {
+      for (let i = 0; i < campaignCount.toNumber(); i++) {
+        const data = await contract?.call("campaigns", i);
+        _campaigns.push(data);
+      }
+      setLoadingCampigns(false);
+      setCampaigns(_campaigns);
+    } catch (error) {
+      setLoadingCampigns(false);
     }
-
-    setCampaigns(_campaigns);
   };
 
   const contextValue = {
     contract,
+    loadingCampigns,
     campaigns,
     getCampaigns,
   };
