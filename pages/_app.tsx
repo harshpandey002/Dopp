@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThirdwebProvider desiredChainId={desiredChainId}>
       <ContractProvider>
         <Component {...pageProps} />
-        <ToastContainer theme="dark" />
+        <ToastContainer theme="dark" position="bottom-center" />
       </ContractProvider>
     </ThirdwebProvider>
   );

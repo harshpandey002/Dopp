@@ -6,6 +6,9 @@ import { FaEthereum } from "react-icons/fa";
 import { useContractContext } from "../context/contractContext";
 import { inputStyles } from "./CreateCampaignModal";
 import { ModalHeader } from "./ModalHeader";
+import { formatAddr } from "../helpers/formatAddr";
+import { toast } from "react-toastify";
+import copy from "copy-to-clipboard";
 
 export default function DonateModal({ show: campaign, onClose }: any) {
   if (!campaign.name) return null;
@@ -13,8 +16,16 @@ export default function DonateModal({ show: campaign, onClose }: any) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { contract, getCampaigns }: any = useContractContext();
 
-  const { id, name, description, image, totalAmount, amountReceived, url } =
-    campaign;
+  const {
+    id,
+    name,
+    description,
+    image,
+    totalAmount,
+    amountReceived,
+    url,
+    author,
+  } = campaign;
 
   const received = Math.floor(
     Number(ethers.utils.formatEther(amountReceived.toString()))
@@ -43,6 +54,15 @@ export default function DonateModal({ show: campaign, onClose }: any) {
   const handleClose = () => {
     if (isLoading) return;
     onClose();
+  };
+
+  const copyAuthor = (e: any) => {
+    e.stopPropagation();
+    copy(author, {
+      debug: true,
+      message: "Press #{key} to copy",
+    });
+    toast.success(`${formatAddr(author)} Copied`);
   };
 
   const total = Number(ethers.utils.formatEther(totalAmount.toString()));
@@ -90,12 +110,12 @@ export default function DonateModal({ show: campaign, onClose }: any) {
                   Raised of {total} Ethers
                 </p>
               </div>
-              <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-                <img
-                  src={`https://avatars.dicebear.com/api/bottts/.svg`}
-                  alt="owner"
-                />
-              </div>
+              <p
+                onClick={copyAuthor}
+                className="border cursor-pointer border-solid border-[#e3e3e3] rounded-md px-2 py-1 text-sm text-gray-400 hover:bg-gray-200"
+              >
+                {formatAddr(author)}
+              </p>
             </div>
             <div className="flex flex-col gap-2 sticky bottom-0 bg-white py-4">
               <input

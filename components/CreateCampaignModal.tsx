@@ -10,6 +10,7 @@ import { FaEthereum } from "react-icons/fa";
 import { useContractContext } from "../context/contractContext";
 import { formatAddr } from "../helpers/formatAddr";
 import { ModalHeader } from "./ModalHeader";
+import { toast } from "react-toastify";
 
 const inputGroup = "flex flex-col gap-1";
 
@@ -41,15 +42,6 @@ export default function CreateCampaignModal({
 
   const handleDrop = (e: any) => {
     setImage(e.target.files[0]);
-
-    // const reader = new FileReader();
-    // reader.readAsArrayBuffer(e.target.files[0]);
-    // reader.onabort = () => console.log("file reading was aborted");
-    // reader.onerror = () => console.log("file reading has failed");
-    // reader.onload = () => {
-    //   const imageUri = reader.result;
-    //   setImage(imageUri);
-    // };
   };
 
   const handleChange = (e: any) => {
@@ -75,21 +67,36 @@ export default function CreateCampaignModal({
     const { name, description, amount, url } = formData;
 
     try {
-      const uploadUrl = await uploadToIpfs({
-        data: [image],
-        options: {
-          uploadWithGatewayUrl: true,
-          uploadWithoutDirectory: true,
-        },
-      });
+      const uploadUrl = await toast.promise(
+        uploadToIpfs({
+          data: [image],
+          options: {
+            uploadWithGatewayUrl: true,
+            uploadWithoutDirectory: true,
+          },
+        }),
+        {
+          pending: "Uploading Image to IPFS",
+          success: "Image uploaded.",
+          error: "Some error occured.",
+        }
+      );
 
-      await createCampaign([
-        uploadUrl[0],
-        name,
-        url,
-        description,
-        ethers.utils.parseEther(amount.toString()),
-      ]);
+      await toast.promise(
+        createCampaign([
+          uploadUrl[0],
+          name,
+          url,
+          description,
+          ethers.utils.parseEther(amount.toString()),
+        ]),
+        {
+          pending: "Creating your campaign.",
+          success: "Campaign Created!!",
+          error: "Some error occured.",
+        }
+      );
+
       setIsLoading(false);
       getCampaigns();
       onClose();
@@ -199,6 +206,8 @@ function PreviewCampaignCard({ data }: any) {
   const [file, setFile] = useState();
 
   useEffect(() => {
+    if (!image) return;
+
     const reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onabort = () => console.log("file reading was aborted");
