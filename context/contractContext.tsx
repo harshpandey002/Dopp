@@ -6,7 +6,6 @@ import {
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import { createContext, useContext, useEffect, useState } from "react";
-import { abi } from "../helpers/abi";
 
 export const contractContext = createContext({});
 export const useContractContext = () => useContext(contractContext);
@@ -16,7 +15,7 @@ function ContractProvider({ children }: any) {
   const [loadingCampigns, setLoadingCampigns] = useState<any>(false);
 
   const { contract } = useContract(
-    "0x3f1aA18045B2A2814F02475f42C7577E4AdBE707"
+    "0x96b25615aC6D9b0F6aa93aD2E03Ba392c05BF33A"
   );
 
   const { data: campaignCount, refetch: getCampaignCount } = useContractRead(

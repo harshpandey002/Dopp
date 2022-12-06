@@ -1,9 +1,8 @@
-import { ethers } from "ethers";
-import React, { useState } from "react";
+import { useState } from "react";
+import { ImSpinner2 } from "react-icons/im";
 import { useContractContext } from "../context/contractContext";
 import CampaignCard from "./CampaignCard";
 import DonateModal from "./DonateModal";
-import { ImSpinner2 } from "react-icons/im";
 
 export default function Campaigns() {
   const [show, setShow] = useState({});
