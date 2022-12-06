@@ -55,18 +55,15 @@ export default function CampaignCard({ data = {}, onClick, disabled }: any) {
               </>
             )}
           </span>
+          <p className="text-md text-secondary line-clamp-3">{description}</p>
         </div>
-        <div>
-          <p className="text-sm text-secondary line-clamp-3">{description}</p>
-
-          <div className="h-[28px] mt-3 overflow-hidden rounded-[4px] bg-neutral-200 ">
-            <div
-              style={{ width }}
-              className={`h-full bg-gradient-to-r ${gradientClass}`}
-            />
-          </div>
+        <div className="h-[28px] overflow-hidden rounded-[4px] bg-neutral-200 mt-auto">
+          <div
+            style={{ width }}
+            className={`h-full bg-gradient-to-r ${gradientClass}`}
+          />
         </div>
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between ">
           <div>
             <h4 className="flex text-2xl text-primary font-medium items-center gap-1">
               <FaEthereum /> {received} Ether

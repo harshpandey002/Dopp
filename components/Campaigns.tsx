@@ -20,13 +20,10 @@ export default function Campaigns() {
   let fulfilled: any = [];
 
   campaigns.forEach((data: any) => {
-    if (
-      Number(ethers.utils.formatEther(data.amountReceived.toString())) <
-      Number(ethers.utils.formatEther(data.totalAmount.toString()))
-    ) {
-      pending.push(data);
-    } else {
+    if (data.goalAchieved) {
       fulfilled.push(data);
+    } else {
+      pending.push(data);
     }
   });
 

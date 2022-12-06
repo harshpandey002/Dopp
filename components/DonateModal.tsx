@@ -39,9 +39,16 @@ export default function DonateModal({ show: campaign, onClose }: any) {
     setIsLoading(true);
 
     try {
-      await contract.call("donateFunds", id.toNumber(), {
-        value: ethers.utils.parseEther(amount),
-      });
+      await toast.promise(
+        contract.call("donateFunds", id.toNumber(), {
+          value: ethers.utils.parseEther(amount),
+        }),
+        {
+          pending: "Transfering funds to author.",
+          success: "Funds transfered.",
+          error: "Some error occured.",
+        }
+      );
       setIsLoading(false);
       getCampaigns();
       onClose();
