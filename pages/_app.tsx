@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const desiredChainId = ChainId.Mumbai;
+  const desiredChainId = ChainId.Goerli;
 
   return (
     <ThirdwebProvider desiredChainId={desiredChainId}>
