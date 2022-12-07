@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  useContract,
-  useContractRead,
-  useContractWrite,
-} from "@thirdweb-dev/react";
-import { ethers } from "ethers";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useContract, useContractRead } from "@thirdweb-dev/react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+} from "react";
 
 export const contractContext = createContext({});
 export const useContractContext = () => useContext(contractContext);
@@ -25,10 +26,11 @@ function ContractProvider({ children }: any) {
 
   useEffect(() => {
     if (!campaignCount) return;
-    getCampaigns();
-  }, [campaignCount]);
 
-  const getCampaigns = async () => {
+    getCampaigns();
+  }, [campaignCount?.toNumber()]);
+
+  async function getCampaigns() {
     let _campaigns = [];
 
     setLoadingCampigns(true);
@@ -42,7 +44,7 @@ function ContractProvider({ children }: any) {
     } catch (error) {
       setLoadingCampigns(false);
     }
-  };
+  }
 
   const contextValue = {
     contract,

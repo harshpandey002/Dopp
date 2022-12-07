@@ -27,11 +27,18 @@ export default function Hero() {
         <div className="flex-[5] px-4">
           <h2 className="text-[28px] md:text-[44px] text-center md:text-start leading-snug font-semibold text-primary">
             Raise 🤑 Funds for your personal needs and {address ? <br /> : ""}{" "}
-            fool the investors 😭
+            get rich quickly 💵
           </h2>
           <p className="mt-7 text-secondary text-center md:text-start text-md md:text-xl md:font-medium">
-            Instantly fool your investors by saying you need funds for your
-            mother’s surgery.
+            <a
+              className="bg-[#1D8399] py-[1px] px-2 text-white "
+              href="https://www.harshkumarpandey.com/blogs"
+              target="_blank"
+            >
+              Learn
+            </a>{" "}
+            how to build this mini dapp using most popular tech-stack out there
+            i.e. Solidity, Thirdweb, Tailwindcss, Nextjs and TypeScript.
           </p>
         </div>
         {address ? (
