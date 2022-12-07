@@ -126,7 +126,6 @@ export default function DonateModal({ show: campaign, onClose }: any) {
                 className={inputStyles}
                 type="number"
                 min="0"
-                step="0.1"
                 placeholder="Enter Amount"
                 ref={amountRef}
               />

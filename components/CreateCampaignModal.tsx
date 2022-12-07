@@ -170,7 +170,6 @@ export default function CreateCampaignModal({
                 name="amount"
                 type="number"
                 min="0"
-                step="0.1"
                 className={inputStyles}
                 value={formData.amount}
                 onChange={handleChange}
