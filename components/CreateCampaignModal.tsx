@@ -186,10 +186,6 @@ export default function CreateCampaignModal({
               </button>
               <button
                 disabled={isLoading}
-                style={{
-                  backgroundColor: "red",
-                  color: "blue",
-                }}
                 type="submit"
                 className="py-2 px-4 bg-[#1D8399] hover:bg-[#13697C] text-white rounded-md"
               >

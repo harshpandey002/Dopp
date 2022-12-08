@@ -11,6 +11,8 @@ export default function Hero() {
     ? "flex-col md:flex-row"
     : "text-center max-w-[700px] flex-col";
 
+  const headingClass = address ? "md:text-start" : "";
+
   const onClose = () => {
     setShow(false);
   };
@@ -25,11 +27,15 @@ export default function Hero() {
         className={`w-full max-w-[1000px] mx-auto mt-[4rem] md:mt-[6rem] mb-[2rem] md:mb-[6rem]  flex ${classNames}`}
       >
         <div className="flex-[5] px-4">
-          <h2 className="text-[28px] md:text-[44px] text-center md:text-start leading-snug font-semibold text-primary">
+          <h2
+            className={`text-[28px] md:text-[44px] text-center ${headingClass} leading-snug font-semibold text-primary`}
+          >
             Raise 🤑 Funds for your personal needs and {address ? <br /> : ""}{" "}
             get rich quickly 💵
           </h2>
-          <p className="mt-7 text-secondary text-center md:text-start text-md md:text-xl md:font-medium">
+          <p
+            className={`mt-7 text-secondary text-center ${headingClass} text-md md:text-xl md:font-medium`}
+          >
             <a
               className="bg-[#1D8399] py-[1px] px-2 text-white "
               href="https://www.harshkumarpandey.com/blogs"
