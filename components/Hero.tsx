@@ -37,7 +37,7 @@ export default function Hero() {
             className={`mt-7 text-secondary text-center ${headingClass} text-md md:text-xl md:font-medium`}
           >
             <a
-              className="bg-[#1D8399] py-[1px] px-2 text-white "
+              className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-red-600 font-semibold"
               href="https://www.harshkumarpandey.com/blogs"
               target="_blank"
             >
