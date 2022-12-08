@@ -30,8 +30,8 @@ export default function Hero() {
           <h2
             className={`text-[28px] md:text-[44px] text-center ${headingClass} leading-snug font-semibold text-primary`}
           >
-            Raise 🤑 Funds for your personal needs and {address ? <br /> : ""}{" "}
-            get rich quickly 💵
+            Empowering Change Through Giving: {address ? <br /> : ""} Support
+            Your Favorite Causes Today
           </h2>
           <p
             className={`mt-7 text-secondary text-center ${headingClass} text-md md:text-xl md:font-medium`}
