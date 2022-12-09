@@ -1,9 +1,9 @@
-import "../styles/globals.css";
+import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 import type { AppProps } from "next/app";
-import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
-import ContractProvider from "../context/contractContext";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ContractProvider from "../context/contractContext";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const desiredChainId = ChainId.Goerli;

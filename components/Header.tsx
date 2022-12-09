@@ -1,8 +1,7 @@
-import React from "react";
-import { BiLinkExternal } from "react-icons/bi";
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
 import Head from "next/head";
-import { AiFillInstagram, AiFillGithub } from "react-icons/ai";
+import { AiFillGithub, AiFillInstagram } from "react-icons/ai";
+import { BiLinkExternal } from "react-icons/bi";
 import { FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 export default function Header() {

@@ -7,10 +7,10 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
+import { toast } from "react-toastify";
 import { useContractContext } from "../context/contractContext";
 import { formatAddr } from "../helpers/formatAddr";
 import { ModalHeader } from "./ModalHeader";
-import { toast } from "react-toastify";
 
 const inputGroup = "flex flex-col gap-1";
 

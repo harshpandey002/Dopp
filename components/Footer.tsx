@@ -1,6 +1,5 @@
-import React from "react";
+import { AiFillGithub, AiFillInstagram } from "react-icons/ai";
 import { BiLinkExternal } from "react-icons/bi";
-import { AiFillInstagram, AiFillGithub } from "react-icons/ai";
 import { FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
 export default function Footer() {

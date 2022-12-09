@@ -44,7 +44,7 @@ export default function Hero() {
               Learn
             </a>{" "}
             how to build this mini dapp using most popular tech-stack out there
-            i.e. Solidity, Thirdweb, Tailwindcss, Nextjs and TypeScript.
+            i.e. Solidity, Thirdweb, Tailwind, Nextjs and TypeScript.
           </p>
         </div>
         {address ? (

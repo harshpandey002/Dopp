@@ -1,10 +1,10 @@
-import { MediaRenderer, useAddress } from "@thirdweb-dev/react";
+import { MediaRenderer } from "@thirdweb-dev/react";
+import copy from "copy-to-clipboard";
 import { ethers } from "ethers";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { formatAddr } from "../helpers/formatAddr";
-import copy from "copy-to-clipboard";
 
 export default function CampaignCard({ data = {}, onClick, disabled }: any) {
   const { image, name, description, url, totalAmount, amountReceived, author } =

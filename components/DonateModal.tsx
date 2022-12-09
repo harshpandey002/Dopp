@@ -1,14 +1,14 @@
-import { MediaRenderer, useContractWrite } from "@thirdweb-dev/react";
-import { useState, useRef } from "react";
+import { MediaRenderer } from "@thirdweb-dev/react";
+import copy from "copy-to-clipboard";
 import { ethers } from "ethers";
+import { useRef, useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import { FaEthereum } from "react-icons/fa";
+import { toast } from "react-toastify";
 import { useContractContext } from "../context/contractContext";
+import { formatAddr } from "../helpers/formatAddr";
 import { inputStyles } from "./CreateCampaignModal";
 import { ModalHeader } from "./ModalHeader";
-import { formatAddr } from "../helpers/formatAddr";
-import { toast } from "react-toastify";
-import copy from "copy-to-clipboard";
 
 export default function DonateModal({ show: campaign, onClose }: any) {
   if (!campaign.name) return null;
@@ -25,6 +25,7 @@ export default function DonateModal({ show: campaign, onClose }: any) {
     amountReceived,
     url,
     author,
+    goalAchieved,
   } = campaign;
 
   const received = Math.floor(

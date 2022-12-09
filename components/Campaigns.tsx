@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
+import { MdHorizontalRule } from "react-icons/md";
 import { useContractContext } from "../context/contractContext";
 import CampaignCard from "./CampaignCard";
 import DonateModal from "./DonateModal";
@@ -42,6 +43,10 @@ export default function Campaigns() {
           <CampaignCard onClick={onClick} data={campaign} />
         ))}
       </div>
+
+      <h3 className="text-2xl w-max flex items-center gap-2 mx-auto text-primary text-center font-medium">
+        <MdHorizontalRule /> Goals Achieved <MdHorizontalRule />
+      </h3>
 
       <div className="grid grid-cols-campaigns px-4 w-full max-w-[1200px] mx-auto py-8 gap-4">
         {fulfilled.map((campaign: any) => (
