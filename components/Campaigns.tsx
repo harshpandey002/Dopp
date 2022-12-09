@@ -44,9 +44,11 @@ export default function Campaigns() {
         ))}
       </div>
 
-      <h3 className="text-2xl w-max flex items-center gap-2 mx-auto text-primary text-center font-medium">
-        <MdHorizontalRule /> Goals Achieved <MdHorizontalRule />
-      </h3>
+      {!!fulfilled.length && (
+        <h3 className="text-2xl w-max flex items-center gap-2 mx-auto text-primary text-center font-medium">
+          <MdHorizontalRule /> Goals Achieved <MdHorizontalRule />
+        </h3>
+      )}
 
       <div className="grid grid-cols-campaigns px-4 w-full max-w-[1200px] mx-auto py-8 gap-4">
         {fulfilled.map((campaign: any) => (
