@@ -16,7 +16,8 @@ function ContractProvider({ children }: any) {
   const [loadingCampigns, setLoadingCampigns] = useState<any>(false);
 
   const { contract } = useContract(
-    "0xbDA30644945181E76Ce82e479a4AF159bBF8b3Cb"
+    "0x3f1aA18045B2A2814F02475f42C7577E4AdBE707"
+    // "0xbDA30644945181E76Ce82e479a4AF159bBF8b3Cb"
   );
 
   const { data: campaignCount, refetch: getCampaignCount } = useContractRead(

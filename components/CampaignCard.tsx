@@ -50,7 +50,13 @@ export default function CampaignCard({ data = {}, onClick, disabled }: any) {
           <span className="flex items-center gap-1 text-blue-800 ">
             {url && (
               <>
-                <a className="cursor-pointer hover:underline ">{url}</a>
+                <a
+                  href={`https://${url}`}
+                  target="_blanlk"
+                  className="cursor-pointer hover:underline"
+                >
+                  {url}
+                </a>
                 <BiLinkExternal className="text-sm" />
               </>
             )}

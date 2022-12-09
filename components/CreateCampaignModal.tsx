@@ -86,21 +86,26 @@ export default function CreateCampaignModal({
         createCampaign([
           uploadUrl[0],
           name,
-          url,
+          url.replace("https://", ""),
           description,
           ethers.utils.parseEther(amount.toString()),
         ]),
         {
           pending: "Creating your campaign.",
           success: "Campaign Created!!",
-          error: "Some error occured.",
+          // error: "Some error occured.",
+          error: {
+            render({ data }: any) {
+              return data.reason;
+            },
+          },
         }
       );
 
       setIsLoading(false);
       getCampaigns();
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       setIsLoading(false);
     }

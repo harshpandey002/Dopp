@@ -46,7 +46,11 @@ export default function DonateModal({ show: campaign, onClose }: any) {
         {
           pending: "Transfering funds to author.",
           success: "Funds transfered.",
-          error: "Some error occured.",
+          error: {
+            render({ data }: any) {
+              return data.reason;
+            },
+          },
         }
       );
       setIsLoading(false);
@@ -99,7 +103,13 @@ export default function DonateModal({ show: campaign, onClose }: any) {
               </h4>
               {url && (
                 <span className="flex items-center gap-1 text-blue-800 ">
-                  <a className="cursor-pointer hover:underline ">{url}</a>
+                  <a
+                    href={`https://${url}`}
+                    target="_blank"
+                    className="cursor-pointer hover:underline "
+                  >
+                    {url}
+                  </a>
                   <BiLinkExternal className="text-sm" />
                 </span>
               )}
