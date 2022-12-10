@@ -1,4 +1,4 @@
-import { MediaRenderer } from "@thirdweb-dev/react";
+import { ConnectWallet, MediaRenderer, useAddress } from "@thirdweb-dev/react";
 import copy from "copy-to-clipboard";
 import { ethers } from "ethers";
 import { useRef, useState } from "react";
@@ -27,6 +27,8 @@ export default function DonateModal({ show: campaign, onClose }: any) {
     author,
     goalAchieved,
   } = campaign;
+
+  const address = useAddress();
 
   const received = Math.floor(
     Number(ethers.utils.formatEther(amountReceived.toString()))
@@ -148,14 +150,20 @@ export default function DonateModal({ show: campaign, onClose }: any) {
                 >
                   Cancle
                 </button>
-                <button
-                  disabled={isLoading}
-                  onClick={donate}
-                  type="submit"
-                  className="py-2 px-4 bg-[#1D8399] hover:bg-[#13697C] text-white rounded-md"
-                >
-                  Donate
-                </button>
+                {address ? (
+                  <button
+                    disabled={isLoading}
+                    onClick={donate}
+                    type="submit"
+                    className="py-2 px-4 bg-[#1D8399] hover:bg-[#13697C] text-white rounded-md"
+                  >
+                    Donate
+                  </button>
+                ) : (
+                  <div id="hide-svg">
+                    <ConnectWallet accentColor="#1D8399" />
+                  </div>
+                )}
               </div>
             </div>
           </div>

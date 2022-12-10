@@ -29,3 +29,21 @@ button:disabled {
 #media > img {
   object-fit: cover !important;
 }
+
+#hide-svg svg {
+  display: none;
+}
+
+#hide-svg span {
+  width: max-content !important;
+}
+
+#hide-svg button {
+  min-width: max-content !important;
+  width: max-content !important;
+  padding: 8px 16px !important;
+  height: max-content !important;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Poppins, sans-serif;
+}
