@@ -47,3 +47,9 @@ button:disabled {
   font-weight: 400;
   font-family: Poppins, sans-serif;
 }
+
+#labelImg {
+  position: absolute;
+  top: 70%;
+  left: 55%;
+}

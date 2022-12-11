@@ -48,7 +48,7 @@ export default function Hero() {
           </p>
         </div>
         {address ? (
-          <div className="flex-[4] flex justify-center h-full mt-8 md:mt-0">
+          <div className="relative flex-[4] flex justify-center h-full mt-8 md:mt-0">
             {/* <button className="relative cursor-pointer p-8 bg-[#1D8399] rounded-2xl text-white text-5xl flex items-center justify-center z-2 before:absolute before:content-[''] before:h-full before:w-full before:bg-gray-700  before:z-1 before:top-2"> */}
             <button
               onClick={handleShow}
@@ -56,6 +56,12 @@ export default function Hero() {
             >
               <BsArrowRight />
             </button>
+            <img
+              id="labelImg"
+              className="hidden md:block"
+              src="label.png"
+              alt=""
+            />
           </div>
         ) : (
           <div className="w-max mx-auto mt-8 ">
