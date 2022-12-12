@@ -7,7 +7,7 @@ import DonateModal from "./DonateModal";
 
 export default function Campaigns() {
   const [show, setShow] = useState({});
-  const { campaigns, loadingCampigns }: any = useContractContext();
+  const { campaigns, loadingCampigns } = useContractContext();
 
   const onClose = () => {
     setShow({});

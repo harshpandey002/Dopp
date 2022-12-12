@@ -8,7 +8,10 @@ import React, {
   useMemo,
 } from "react";
 
-export const contractContext = createContext({});
+export const contractContext = createContext({
+  campaigns: [],
+  loadingCampigns: false,
+});
 export const useContractContext = () => useContext(contractContext);
 
 function ContractProvider({ children }: any) {

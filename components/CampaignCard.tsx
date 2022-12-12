@@ -6,7 +6,17 @@ import { FaEthereum } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { formatAddr } from "../helpers/formatAddr";
 
-export default function CampaignCard({ data = {}, onClick, disabled }: any) {
+type CampaignCardProps = {
+  data: any;
+  onClick: (args: Object) => void;
+  disabled?: boolean;
+};
+
+export default function CampaignCard({
+  data = {},
+  onClick,
+  disabled,
+}: CampaignCardProps) {
   const { image, name, description, url, totalAmount, amountReceived, author } =
     data;
 
